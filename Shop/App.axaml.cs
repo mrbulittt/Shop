@@ -1,8 +1,11 @@
+using System;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
 using Shop.Data;
+using Shop.Pages;
 
 namespace Shop
 {
@@ -11,13 +14,14 @@ namespace Shop
         public static AppDbContext DbContext { get; private set; } = new AppDbContext();
         public override void Initialize()
         {
-            
             DbContext.Roles.ToList();
             DbContext.Users.ToList();
             DbContext.Products.ToList();
             DbContext.Orders.ToList();
             DbContext.Baskets.ToList();
             DbContext.ProdCategories.ToList();
+           
+        
         }
 
         public override void OnFrameworkInitializationCompleted()
@@ -29,5 +33,6 @@ namespace Shop
 
             base.OnFrameworkInitializationCompleted();
         }
+        public static IServiceProvider Services { get; private set; }
     }
 }

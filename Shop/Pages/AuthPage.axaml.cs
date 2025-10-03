@@ -27,8 +27,8 @@ public partial class AuthPage : UserControl
         if (d != null)
         {
             await MessageBoxManager.GetMessageBoxStandard("Успех", "Добро пожаловать").ShowAsync();
-            _mainWindow.MainControl.Content = new MainPage(d);
-                        
+            NavigationService.NavigateTo<MainPage>();
+
         }
         else
         {

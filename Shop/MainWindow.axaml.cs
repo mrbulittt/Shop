@@ -8,7 +8,8 @@ namespace Shop
         public MainWindow()
         {
             InitializeComponent();
-            MainControl.Content = new AuthPage();
+            NavigationService.Initialize(MainControl);
+            NavigationService.NavigateTo<AuthPage>();
         }
     }
 }

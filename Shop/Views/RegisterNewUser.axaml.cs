@@ -12,7 +12,6 @@ public partial class RegisterNewUser : Window
     public RegisterNewUser()
     {
         InitializeComponent();
-        ComboRoles.ItemsSource = App.DbContext.Roles.ToList();
 
         if (VariableData.selectedUser != null)
         {
@@ -21,11 +20,6 @@ public partial class RegisterNewUser : Window
             if (user != null)
             {
                 DataContext = user;
-
-                if (user != null && user.IdRoleNavigation != null)
-                {
-                    ComboRoles.SelectedItem = user.IdRoleNavigation;
-                }
             }
         }
 
@@ -40,12 +34,11 @@ public partial class RegisterNewUser : Window
     {
         if (string.IsNullOrWhiteSpace(NameLoginText.Text) || string.IsNullOrWhiteSpace(FullNameText.Text) || 
             string.IsNullOrWhiteSpace(PasswordText.Text) || string.IsNullOrWhiteSpace(EmailText.Text) || string.IsNullOrWhiteSpace(AddressText.Text)
-            || string.IsNullOrWhiteSpace(PhoneNumText.Text) || ComboRoles.SelectedItem == null)
+            || string.IsNullOrWhiteSpace(PhoneNumText.Text))
         {
             return;
         }
 
-        var selectedRole = ComboRoles.SelectedItem as Role;
         var thisUser = DataContext as User;
 
         if (thisUser == null) return;
@@ -56,10 +49,7 @@ public partial class RegisterNewUser : Window
             thisUser.Login = NameLoginText.Text;
             thisUser.Password = PasswordText.Text;
 
-            if (thisUser != null)
-            {
-                thisUser.IdRole = selectedRole.IdRole;
-            }
+            
 
             App.DbContext.Update(thisUser);
             if (thisUser != null)
@@ -74,7 +64,6 @@ public partial class RegisterNewUser : Window
                 thisUser = new User();
             }
 
-            thisUser.IdRole = selectedRole.IdRole;
 
             App.DbContext.Users.Add(thisUser);
         }

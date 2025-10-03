@@ -14,8 +14,10 @@ namespace Shop.Pages;
 public partial class MainPage : UserControl
 {
     User us;
-    public MainPage(User user)
+    public MainPage()
     {
         InitializeComponent();
     }
+
+    
 }
