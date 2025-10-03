@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="Shop/MainWindow.axaml" value="Shop/Shop.csproj" />
+        <entry key="Shop/Pages/AuthPage.axaml" value="Shop/Shop.csproj" />
+        <entry key="Shop/Pages/BasketPage.axaml" value="Shop/Shop.csproj" />
+        <entry key="Shop/Pages/MainPage.axaml" value="Shop/Shop.csproj" />
+        <entry key="Shop/Pages/OrderPage.axaml" value="Shop/Shop.csproj" />
+        <entry key="Shop/Pages/ProdListPage.axaml" value="Shop/Shop.csproj" />
+        <entry key="Shop/Views/RegisterNewUser.axaml" value="Shop/Shop.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
