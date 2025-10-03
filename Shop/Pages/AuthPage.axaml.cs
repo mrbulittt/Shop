@@ -7,6 +7,7 @@ using MsBox.Avalonia;
 using Shop.Data;
 using Shop.Views;
 
+
 namespace Shop.Pages;
 
 public partial class AuthPage : UserControl
@@ -22,7 +23,7 @@ public partial class AuthPage : UserControl
     {
         string login = LoginText.Text;
         string password = PasswordText.Text;
-        var d = App.DbContext.Logins.FirstOrDefault(x => x.NameLogin == login && x.Password == password);
+        var d = App.DbContext.Users.FirstOrDefault(us => us.Login == login && us.Password == password);
         if (d != null)
         {
             await MessageBoxManager.GetMessageBoxStandard("Успех", "Добро пожаловать").ShowAsync();
@@ -36,7 +37,7 @@ public partial class AuthPage : UserControl
         }
     }
 
-    private void RegisterButton_OnClick(object? sender, RoutedEventArgs e)
+    private async void RegisterButton_OnClick(object? sender, RoutedEventArgs e)
     {
         var parent = this.VisualRoot as Window;
         var registerwindow = new RegisterNewUser();

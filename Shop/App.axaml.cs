@@ -1,3 +1,4 @@
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -10,7 +11,13 @@ namespace Shop
         public static AppDbContext DbContext { get; private set; } = new AppDbContext();
         public override void Initialize()
         {
-            AvaloniaXamlLoader.Load(this);
+            
+            DbContext.Roles.ToList();
+            DbContext.Users.ToList();
+            DbContext.Products.ToList();
+            DbContext.Orders.ToList();
+            DbContext.Baskets.ToList();
+            DbContext.ProdCategories.ToList();
         }
 
         public override void OnFrameworkInitializationCompleted()

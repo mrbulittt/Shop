@@ -17,8 +17,6 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Basket> Baskets { get; set; }
 
-    public virtual DbSet<Login> Logins { get; set; }
-
     public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<ProdCategory> ProdCategories { get; set; }
@@ -59,21 +57,6 @@ public partial class AppDbContext : DbContext
                 .HasForeignKey(d => d.IdUser)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Basket_id_user_fkey");
-        });
-
-        modelBuilder.Entity<Login>(entity =>
-        {
-            entity.HasKey(e => e.IdLogin).HasName("logins_pkey");
-
-            entity.ToTable("logins");
-
-            entity.Property(e => e.IdLogin).HasColumnName("id_login");
-            entity.Property(e => e.IdUser).HasColumnName("id_user");
-            entity.Property(e => e.NameLogin).HasColumnName("Name_login");
-
-            entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.Logins)
-                .HasForeignKey(d => d.IdUser)
-                .HasConstraintName("logins_id_user_fkey");
         });
 
         modelBuilder.Entity<Order>(entity =>

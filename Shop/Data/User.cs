@@ -17,11 +17,13 @@ public partial class User
 
     public int? IdRole { get; set; }
 
+    public string? Login { get; set; }
+
+    public string? Password { get; set; }
+
     public virtual ICollection<Basket> Baskets { get; set; } = new List<Basket>();
 
     public virtual Role? IdRoleNavigation { get; set; }
-
-    public virtual ICollection<Login> Logins { get; set; } = new List<Login>();
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }
