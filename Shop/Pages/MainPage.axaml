@@ -1,0 +1,30 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Shop.Pages.MainPage">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Боковая панель -->
+        <Border Grid.Column="0" Background="LightBlue" Width="200">
+            <StackPanel Margin="10">
+                <TextBlock Text="Боковая панель" FontWeight="Bold"/>
+                <Button Content="Пункт 1" Margin="0,5"/>
+                <Button Content="Пункт 2" Margin="0,5"/>
+                <Button Content="Пункт 3" Margin="0,5"/>
+            </StackPanel>
+        </Border>
+        
+        <!-- Основное содержимое -->
+        <Grid Grid.Column="1" Background="White">
+            <TextBlock Text="Основное содержимое" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="20"/>
+        </Grid>
+    </Grid>
+</UserControl>

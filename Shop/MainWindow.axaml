@@ -5,5 +5,5 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Shop.MainWindow"
         Title="Shop">
-    Welcome to Avalonia!
+    <ContentControl Name="MainControl"/>
 </Window>

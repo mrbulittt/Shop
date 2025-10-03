@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Shop.Pages;
 
 namespace Shop
 {
@@ -7,6 +8,7 @@ namespace Shop
         public MainWindow()
         {
             InitializeComponent();
+            MainControl.Content = new AuthPage();
         }
     }
 }
