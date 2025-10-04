@@ -13,25 +13,17 @@ public partial class RegisterNewUser : Window
     {
         InitializeComponent();
 
-        if (VariableData.selectedUser != null)
-        {
-            var user = App.DbContext.Users.FirstOrDefault(x => x.IdUser == VariableData.selectedUser.IdUser);
-
-            if (user != null)
-            {
-                DataContext = user;
-            }
-        }
-
-        else
+        if (VariableData.selectedUser == null)
         {
             DataContext = new User();
-
+            return;
         }
+        DataContext = VariableData.selectedUser;
     }
 
     private void SaveButton(object? sender, RoutedEventArgs e)
-    {
+    { 
+        
         if (string.IsNullOrWhiteSpace(NameLoginText.Text) || string.IsNullOrWhiteSpace(FullNameText.Text) || 
             string.IsNullOrWhiteSpace(PasswordText.Text) || string.IsNullOrWhiteSpace(EmailText.Text) || string.IsNullOrWhiteSpace(AddressText.Text)
             || string.IsNullOrWhiteSpace(PhoneNumText.Text))
@@ -41,32 +33,11 @@ public partial class RegisterNewUser : Window
 
         var thisUser = DataContext as User;
 
-        if (thisUser == null) return;
-
-        if (VariableData.selectedUser != null)
+        if (VariableData.selectedUser == null)
         {
-
-            thisUser.Login = NameLoginText.Text;
-            thisUser.Password = PasswordText.Text;
-
-            
-
-            App.DbContext.Update(thisUser);
-            if (thisUser != null)
-            {
-                App.DbContext.Update(thisUser);
-            }
-        }
-        else
-        {
-            if (thisUser == null)
-            {
-                thisUser = new User();
-            }
-
-
             App.DbContext.Users.Add(thisUser);
         }
+        
 
         App.DbContext.SaveChanges();
         this.Close();
