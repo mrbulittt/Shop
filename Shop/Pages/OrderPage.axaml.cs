@@ -26,4 +26,9 @@ public partial class OrderPage : UserControl
     {
         NavigationService.NavigateTo<BasketPage>();
     }
+
+    private void OrderHistory(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<OrderPage>();
+    }
 }

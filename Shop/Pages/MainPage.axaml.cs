@@ -13,15 +13,18 @@ namespace Shop.Pages;
 
 public partial class MainPage : UserControl
 {
-    User us;
     public MainPage()
     {
         InitializeComponent();
+
+        
+
     }
 
 
     private void SaveButton(object? sender, RoutedEventArgs e)
     {
+        
     }
 
     private void ProductList(object? sender, RoutedEventArgs e)
@@ -37,5 +40,10 @@ public partial class MainPage : UserControl
     private void OrderHistory(object? sender, RoutedEventArgs e)
     {
         NavigationService.NavigateTo<OrderPage>();
+    }
+
+    private void Main(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<MainPage>();
     }
 }

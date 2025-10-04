@@ -26,4 +26,9 @@ public partial class BasketPage : UserControl
     {
         NavigationService.NavigateTo<OrderPage>();
     }
+
+    private void Basket(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<BasketPage>();
+    }
 }

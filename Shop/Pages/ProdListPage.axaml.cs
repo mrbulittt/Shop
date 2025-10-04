@@ -26,4 +26,9 @@ public partial class ProdListPage : UserControl
     {
         NavigationService.NavigateTo<OrderPage>();
     }
+
+    private void ProdList(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<ProdListPage>();
+    }
 }
