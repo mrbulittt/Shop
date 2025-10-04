@@ -119,7 +119,9 @@ public partial class AppDbContext : DbContext
             entity.ToTable("users");
 
             entity.Property(e => e.IdUser).HasColumnName("id_user");
-            entity.Property(e => e.IdRole).HasColumnName("id_role");
+            entity.Property(e => e.IdRole)
+                .HasDefaultValue(3)
+                .HasColumnName("id_role");
 
             entity.HasOne(d => d.IdRoleNavigation).WithMany(p => p.Users)
                 .HasForeignKey(d => d.IdRole)
