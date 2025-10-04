@@ -12,20 +12,50 @@
         </Grid.ColumnDefinitions>
         
         <!-- Боковая панель -->
-        <Border Grid.Column="0" Background="LightBlue" Width="200">
+        <Border Grid.Column="0" Background="Gray" Width="200">
             <StackPanel Margin="10">
-                <TextBlock Text="Боковая панель" FontWeight="Bold"/>
-                <Button Content="Пункт 1" Margin="0,5"/>
-                <Button Content="Пункт 2" Margin="0,5"/>
-                <Button Content="Пункт 3" Margin="0,5"/>
+                <TextBlock Text="Страницы" FontWeight="Bold"/>
+                <Button Content="Список продуктов" Margin="0,5" Click="ProductList"/>
+                <Button Content="Корзина" Margin="0,5" Click="Basket"/>
+                <Button Content="История заказов" Margin="0,5" Click="OrderHistory"/>
             </StackPanel>
         </Border>
         
         <!-- Основное содержимое -->
-        <Grid Grid.Column="1" Background="White">
-            <TextBlock Text="Основное содержимое" 
-                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                       FontSize="20"/>
+        <Grid Grid.Column="1" >
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <StackPanel>
+                    <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal">
+                        <TextBlock FontSize="20">Логин: </TextBlock>
+                        <TextBox Width="250" Name="NameLoginText" Text="{Binding Login}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal">
+                        <TextBlock FontSize="20">ФИО: </TextBlock>
+                        <TextBox Width="250" Name="FullNameText" Text="{Binding FullName}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal">
+                        <TextBlock FontSize="20">Пароль: </TextBlock>
+                        <TextBox Width="222" Name="PasswordText" Text="{Binding Password}"/>
+                    </StackPanel>
+                
+                    <Button Content="Сохранить" FontSize="20" Margin="10" Click="SaveButton"/>
+
+                </StackPanel>
+                <StackPanel>
+                    <StackPanel Grid.Row="2" Margin="10" Orientation="Horizontal">
+                        <TextBlock FontSize="20">Почта: </TextBlock>
+                        <TextBox Width="300" Name="EmailText"  Text="{Binding Email}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Margin="10" Orientation="Horizontal">
+                        <TextBlock FontSize="20">Адрес: </TextBlock>
+                        <TextBox Width="300" Name="AddressText" Text="{Binding Address}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Margin="10" Orientation="Horizontal">
+                        <TextBlock FontSize="20">Номер телефона: </TextBlock>
+                        <TextBox Width="195" Name="PhoneNumText" Text="{Binding PhoneNum}"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

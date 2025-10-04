@@ -4,5 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Shop.Pages.ProdListPage">
-    Welcome to Avalonia!
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Боковая панель -->
+        <Border Grid.Column="0" Background="Gray" Width="200">
+            <StackPanel Margin="10">
+                <TextBlock Text="Страницы" FontWeight="Bold"/>
+                <Button Content="Главная страница" Margin="0,5" Click="MainPage"/>
+                <Button Content="Корзина" Margin="0,5" Click="Basket"/>
+                <Button Content="История заказов" Margin="0,5" Click="OrderHistory"/>
+            </StackPanel>
+        </Border>
+        
+        <!-- Основное содержимое -->
+        <Grid Grid.Column="1" >
+            <TextBlock FontSize="40"> ProdLisPage</TextBlock>
+        </Grid>
+    </Grid>
 </UserControl>

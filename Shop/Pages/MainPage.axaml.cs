@@ -19,5 +19,23 @@ public partial class MainPage : UserControl
         InitializeComponent();
     }
 
-    
+
+    private void SaveButton(object? sender, RoutedEventArgs e)
+    {
+    }
+
+    private void ProductList(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<ProdListPage>();
+    }
+
+    private void Basket(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<BasketPage>();
+    }
+
+    private void OrderHistory(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<OrderPage>();
+    }
 }
