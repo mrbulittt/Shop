@@ -16,14 +16,33 @@ public partial class MainPage : UserControl
     public MainPage()
     {
         InitializeComponent();
+        
+        if (VariableData.authenticatedUser == null)
+        {
+            DataContext = new User();
+        }
 
+        DataContext = VariableData.authenticatedUser;
         
 
     }
 
 
-    private void SaveButton(object? sender, RoutedEventArgs e)
+    private async void SaveButton(object? sender, RoutedEventArgs e)
     {
+        if(string.IsNullOrEmpty(FullNameText.Text) || string.IsNullOrEmpty(NameLoginText.Text) || string.IsNullOrEmpty(PasswordText.Text)
+           || string.IsNullOrEmpty(EmailText.Text) || string.IsNullOrEmpty(AddressText.Text) 
+           || string.IsNullOrEmpty(PhoneNumText.Text)) return;
+
+        var thisUser = DataContext as User;
+        
+
+        if (VariableData.authenticatedUser != null)
+        {
+            App.DbContext.Users.Update(thisUser);
+        }
+        
+        App.DbContext.SaveChanges();
         
     }
 
@@ -45,5 +64,20 @@ public partial class MainPage : UserControl
     private void Main(object? sender, RoutedEventArgs e)
     {
         NavigationService.NavigateTo<MainPage>();
+    }
+
+    private void Leave(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<AuthPage>();
+    }
+
+    private void UsersList(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<UsersListPage>();
+    }
+
+    private void EmployeeList(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<EmployeeListPage>();
     }
 }

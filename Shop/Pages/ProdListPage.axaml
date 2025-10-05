@@ -18,12 +18,52 @@
                 <Button Content="Список продуктов" Margin="0,5" Click="ProdList"/>
                 <Button Content="Корзина" Margin="0,5" Click="Basket"/>
                 <Button Content="История заказов" Margin="0,5" Click="OrderHistory"/>
+                <Button Content="Список пользователей" Margin="0,5" Click="UsersList"/>
+                <Button Content="Список сотрудников" Margin="0,5" Click="EmployeeList"/>
+                <StackPanel VerticalAlignment="Bottom">
+                    <Button Content="Выход" Margin="0,5" Click="Leave"/>
+                </StackPanel>
             </StackPanel>
         </Border>
         
         <!-- Основное содержимое -->
-        <Grid Grid.Column="1" >
-            <TextBlock FontSize="40"> ProdLisPage</TextBlock>
+        <Grid Grid.Column="1" RowDefinitions="*, Auto">
+            <DataGrid  DoubleTapped="DataGrid_DoubleTapped" IsReadOnly="True" Name="DataGridItems" Grid.Row="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Название товара" Binding="{Binding NameProduct}"/>
+                    <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
+                    <DataGridTextColumn Header="Описание" Binding="{Binding Description}"/>
+                    <DataGridTextColumn Header="Категория" Binding="{Binding IdCategoryNavigation.NameCategory}"/>
+
+                    
+                    <DataGridTemplateColumn Header="Убрать из корзины">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Click="BasketDelete_Click" Content="-"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    <DataGridTemplateColumn Header="Добавить в корзину">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Click="BasketAdd_Click" Content="+"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    <DataGridTemplateColumn Header="Delete" Width="50">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Click="DeleteButton_Click" Content="🗑️"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+				
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Добавление" Grid.Row="1" Click="AddButton_Click"/>
+
         </Grid>
     </Grid>
 </UserControl>

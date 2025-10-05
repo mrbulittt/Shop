@@ -1,16 +1,51 @@
-﻿using Avalonia;
+﻿using System;
+using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Shop.Data;
 
 namespace Shop.Pages;
 
-public partial class OrderPage : UserControl
+public partial class UsersListPage : UserControl
 {
-    public OrderPage()
+    public UsersListPage()
     {
         InitializeComponent();
+        DataGridUsers.ItemsSource = App.DbContext.Users.Where(x => x.IdRole == 3).ToList();
+        
+
+    }
+
+    private void DeleteButton_Click(object? sender, RoutedEventArgs e)
+    {
+        Console.WriteLine("Deleting!");
+
+        var button = sender as Button;
+        var selectedUser = button?.DataContext as User;
+        
+
+        Console.WriteLine((selectedUser == null) ? "User not found" : "User founded");
+
+        if (selectedUser == null) return;
+
+        VariableData.selectedUser = selectedUser;
+
+        App.DbContext.Users.Remove(selectedUser);
+        App.DbContext.SaveChanges();
+
+        DataGridUsers.ItemsSource = App.DbContext.Users.ToList();
+
+    }
+
+    private void AddButton_Click(object? sender, RoutedEventArgs e)
+    {
+    }
+
+    private void DataGrid_DoubleTapped(object? sender, TappedEventArgs e)
+    {
     }
 
     private void MainPage(object? sender, RoutedEventArgs e)
@@ -46,15 +81,5 @@ public partial class OrderPage : UserControl
     private void EmployeeList(object? sender, RoutedEventArgs e)
     {
         NavigationService.NavigateTo<EmployeeListPage>();
-    }
-
-    private void DataGrid_DoubleTapped(object? sender, TappedEventArgs e)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private void DeleteButton_Click(object? sender, RoutedEventArgs e)
-    {
-        throw new System.NotImplementedException();
     }
 }

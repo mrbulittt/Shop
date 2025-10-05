@@ -3,6 +3,7 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="Shop/App.axaml" value="Shop/Shop.csproj" />
         <entry key="Shop/MainWindow.axaml" value="Shop/Shop.csproj" />
         <entry key="Shop/Pages/AuthPage.axaml" value="Shop/Shop.csproj" />
         <entry key="Shop/Pages/BasketPage.axaml" value="Shop/Shop.csproj" />

@@ -13,6 +13,10 @@ public partial class Basket
 
     public int? IdOrder { get; set; }
 
+    public int? ProdCount { get; set; }
+
+    public decimal? ResultPrice { get; set; }
+
     public virtual Order? IdOrderNavigation { get; set; }
 
     public virtual Product IdProductNavigation { get; set; } = null!;

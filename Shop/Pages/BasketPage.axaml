@@ -18,12 +18,35 @@
                 <Button Content="Список продуктов" Margin="0,5" Click="ProductList"/>
                 <Button Content="Корзина" Margin="0,5" Click="Basket"/>
                 <Button Content="История заказов" Margin="0,5" Click="OrderHistory"/>
+                <Button Content="Список пользователей" Margin="0,5" Click="UsersList"/>
+                <Button Content="Список сотрудников" Margin="0,5" Click="EmployeeList"/>
+                <StackPanel VerticalAlignment="Bottom">
+                    <Button Content="Выход" Margin="0,5" Click="Leave"/>
+                </StackPanel>
             </StackPanel>
         </Border>
         
         <!-- Основное содержимое -->
-        <Grid Grid.Column="1" >
-            <TextBlock FontSize="40"> BasketPage</TextBlock>
+        <Grid Grid.Column="1" RowDefinitions="*, Auto">
+            <DataGrid  DoubleTapped="DataGrid_DoubleTapped" IsReadOnly="True" Name="DataGridItems" Grid.Row="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Название товара" Binding="{Binding IdProductNavigation.NameProduct}"/>
+                    <DataGridTextColumn Header="Цена" Binding="{Binding IdProductNavigation.Price}"/>
+                    <DataGridTextColumn Header="Описание" Binding="{Binding IdProductNavigation.Description}"/>
+                    <DataGridTextColumn Header="Количество" Binding="{Binding ProdCount}"/>
+                    <DataGridTextColumn Header="Итоговая цена" Binding="{Binding ResultPrice}"/>
+                    
+                    
+                    <DataGridTemplateColumn Header="Delete" Width="50">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Click="DeleteButton_Click" Content="🗑️"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+				
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
     </Grid>
 </UserControl>

@@ -43,6 +43,10 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.IdOrder).HasColumnName("id_order");
             entity.Property(e => e.IdProduct).HasColumnName("id_product");
             entity.Property(e => e.IdUser).HasColumnName("id_user");
+            entity.Property(e => e.ProdCount).HasColumnName("prod_count");
+            entity.Property(e => e.ResultPrice)
+                .HasPrecision(10, 2)
+                .HasColumnName("result_price");
 
             entity.HasOne(d => d.IdOrderNavigation).WithMany(p => p.Baskets)
                 .HasForeignKey(d => d.IdOrder)

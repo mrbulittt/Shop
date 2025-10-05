@@ -26,6 +26,7 @@ public partial class AuthPage : UserControl
         var d = App.DbContext.Users.FirstOrDefault(us => us.Login == login && us.Password == password);
         if (d != null)
         {
+            VariableData.authenticatedUser = d;
             await MessageBoxManager.GetMessageBoxStandard("Успех", "Добро пожаловать").ShowAsync();
             NavigationService.NavigateTo<MainPage>();
 

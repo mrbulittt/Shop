@@ -2,8 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="850" d:DesignHeight="450"
-             x:Class="Shop.Pages.OrderPage">
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Shop.Pages.UsersListPage">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -28,12 +28,14 @@
         
         <!-- Основное содержимое -->
         <Grid Grid.Column="1" RowDefinitions="*, Auto">
-            <DataGrid  DoubleTapped="DataGrid_DoubleTapped" IsReadOnly="True" Name="DataGridItems" Grid.Row="0">
+            <DataGrid  DoubleTapped="DataGrid_DoubleTapped" IsReadOnly="True" Name="DataGridUsers" Grid.Row="0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Название товара" Binding="{Binding IdProductNavigation.NameProduct}"/>
-                    <DataGridTextColumn Header="Количество" Binding="{Binding ProdCount}"/>
-                    <DataGridTextColumn Header="Итоговая цена" Binding="{Binding TotalAmount}"/>
-                    <DataGridTextColumn Header="Статус заказа" Binding="{Binding Status}"/>
+                    <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}"/>
+                    <DataGridTextColumn Header="Логин" Binding="{Binding Login}"/>
+                    <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>
+                    <DataGridTextColumn Header="Почта" Binding="{Binding Email}"/>
+                    <DataGridTextColumn Header="Адрес" Binding="{Binding Address}"/>
+                    <DataGridTextColumn Header="Номер телефона" Binding="{Binding PhoneNum}"/>
                     
                     <DataGridTemplateColumn Header="Delete" Width="50">
                         <DataGridTemplateColumn.CellTemplate>
@@ -45,6 +47,8 @@
 				
                 </DataGrid.Columns>
             </DataGrid>
+            <Button Content="Добавление" Grid.Row="1" Click="AddButton_Click"/>
+
         </Grid>
     </Grid>
 </UserControl>
