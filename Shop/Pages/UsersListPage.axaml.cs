@@ -51,16 +51,28 @@ public partial class UsersListPage : UserControl
 
     private async void AddButton_Click(object? sender, RoutedEventArgs e)
     {
+        VariableData.selectedUser = null;
+        
         var parent = this.VisualRoot as Window;
         var addwinwUser = new AddAndChangeUser();
         await addwinwUser.ShowDialog(parent);
+        
+        DataGridUsers.ItemsSource = App.DbContext.Users.Where(x => x.IdRole == 3).ToList();
     }
 
     private async void DataGrid_DoubleTapped(object? sender, TappedEventArgs e)
     {
+        var selectedUser = DataGridUsers.SelectedItem as User;
+        if(selectedUser == null)return;
+        
+        VariableData.selectedUser = selectedUser;
+        
         var parent = this.VisualRoot as Window;
         var addwinwUser = new AddAndChangeUser();
         await addwinwUser.ShowDialog(parent);
+        
+        
+        DataGridUsers.ItemsSource = App.DbContext.Users.Where(x => x.IdRole == 3).ToList();
     }
 
     private void MainPage(object? sender, RoutedEventArgs e)

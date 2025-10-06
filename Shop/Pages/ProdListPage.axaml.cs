@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -59,6 +60,22 @@ public partial class ProdListPage : UserControl
 
     private void DeleteButton_Click(object? sender, RoutedEventArgs e)
     {
+        Console.WriteLine("Deleting!");
+
+        var button = sender as Button;
+        var selectedProduct = button?.DataContext as Product;
+        
+
+        Console.WriteLine((selectedProduct == null) ? "Item not found" : "Item founded");
+
+        if (selectedProduct == null) return;
+
+        VariableData.selectedProduct = selectedProduct;
+
+        App.DbContext.Products.Remove(selectedProduct);
+        App.DbContext.SaveChanges();
+
+        DataGridItems.ItemsSource = App.DbContext.Products.ToList();
     }
 
     private void AddButton_Click(object? sender, RoutedEventArgs e)
@@ -71,14 +88,7 @@ public partial class ProdListPage : UserControl
 
     private void BasketAdd_Click(object? sender, RoutedEventArgs e)
     {
-        var thisProd = DataContext as Product;
         
-        var d = VariableData.selectedProduct.IdProduct;
-
-        if (VariableData.selectedProduct == null)
-        {
-            
-        }
     }
 
     private void BasketDelete_Click(object? sender, RoutedEventArgs e)

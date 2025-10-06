@@ -1,8 +1,11 @@
-﻿using Avalonia;
+﻿using System;
+using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Shop.Data;
 
 namespace Shop.Pages;
 
@@ -60,11 +63,25 @@ public partial class OrderPage : UserControl
 
     private void DataGrid_DoubleTapped(object? sender, TappedEventArgs e)
     {
-        throw new System.NotImplementedException();
     }
 
     private void DeleteButton_Click(object? sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        Console.WriteLine("Deleting!");
+
+        var button = sender as Button;
+        var selectedOrder = button?.DataContext as Order;
+        
+
+        Console.WriteLine((selectedOrder == null) ? "Item not found" : "Item founded");
+
+        if (selectedOrder == null) return;
+
+        VariableData.selectedOrder = selectedOrder;
+
+        App.DbContext.Orders.Remove(selectedOrder);
+        App.DbContext.SaveChanges();
+
+        DataGridItems.ItemsSource = App.DbContext.Orders.ToList();
     }
 }

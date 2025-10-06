@@ -53,9 +53,13 @@ public partial class EmployeeListPage : UserControl
 
     private async void AddButton_Click(object? sender, RoutedEventArgs e)
     {
+        VariableData.selectedUser = null;
+        
         var parent = this.VisualRoot as Window;
         var addwinwEmployee = new AddAndChangeEmployee();
         await addwinwEmployee.ShowDialog(parent);
+        
+        DataGridUsers.ItemsSource = App.DbContext.Users.Where(x => x.IdRole == 2).ToList();
     }
 
    
@@ -97,8 +101,16 @@ public partial class EmployeeListPage : UserControl
 
     private async void DataGrid_DoubleTapped(object? sender, TappedEventArgs e)
     {
+        var selectedUser = DataGridUsers.SelectedItem as User;
+        if(selectedUser == null)return;
+        
+        VariableData.selectedUser = selectedUser;
+        
         var parent = this.VisualRoot as Window;
         var addwinwEmployee = new AddAndChangeEmployee();
         await addwinwEmployee.ShowDialog(parent);
+        
+        
+        DataGridUsers.ItemsSource = App.DbContext.Users.Where(x => x.IdRole == 2).ToList();
     }
 }
