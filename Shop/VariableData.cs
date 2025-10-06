@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Shop.Data;
 
 namespace Shop;
@@ -7,7 +8,6 @@ public class VariableData
 {
     
     public static User authenticatedUser { get; set; } 
-    public static Basket authUserBasket { get; set; }
     public static Order authUserOrder { get; set; }
     public static User selectedUser {get;set;}
     public static Basket selectedBasket {get;set;}

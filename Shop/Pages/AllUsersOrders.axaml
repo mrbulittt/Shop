@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Shop.Pages.UsersListPage">
+             x:Class="Shop.Pages.AllUsersOrders">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -29,27 +29,14 @@
         
         <!-- Основное содержимое -->
         <Grid Grid.Column="1" RowDefinitions="*, Auto">
-            <DataGrid  DoubleTapped="DataGrid_DoubleTapped" IsReadOnly="True" Name="DataGridUsers" Grid.Row="0">
+            <DataGrid  DoubleTapped="DataGrid_DoubleTapped" IsReadOnly="True" Name="DataGridItems" Grid.Row="0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}"/>
-                    <DataGridTextColumn Header="Логин" Binding="{Binding Login}"/>
-                    <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>
-                    <DataGridTextColumn Header="Почта" Binding="{Binding Email}"/>
-                    <DataGridTextColumn Header="Адрес" Binding="{Binding Address}"/>
-                    <DataGridTextColumn Header="Номер телефона" Binding="{Binding PhoneNum}"/>
-                    
-                    <DataGridTemplateColumn Header="Delete" Width="50">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Click="DeleteButton_Click" Name="DeleteUserBtn" Content="🗑️"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-				
+                    <DataGridTextColumn Header="Номер заказа" Binding="{Binding IdOrder}"/>
+                    <DataGridTextColumn Header="Номер заказчика" Binding="{Binding IdUser}"/>
+                    <DataGridTextColumn Header="Итоговая цена" Binding="{Binding TotalAmount}"/>
+                    <DataGridTextColumn Header="Статус заказа" Binding="{Binding Status}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Content="Добавление" Name="AddBtn" Grid.Row="1" Click="AddButton_Click"/>
-
         </Grid>
     </Grid>
 </UserControl>

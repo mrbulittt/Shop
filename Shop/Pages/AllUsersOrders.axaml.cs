@@ -1,22 +1,20 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using Shop.Data;
 using Shop.Views;
 
 namespace Shop.Pages;
 
-public partial class OrderPage : UserControl
+public partial class AllUsersOrders : UserControl
 {
-    public OrderPage()
+    public AllUsersOrders()
     {
         InitializeComponent();
-        
-        DataGridItems.ItemsSource = App.DbContext.Orders.Where(x => x.IdUser == VariableData.authenticatedUser.IdUser).ToList();
+
+        DataGridItems.ItemsSource = App.DbContext.Orders.ToList();
         
         if (VariableData.authenticatedUser.IdRole == 2)
         {
@@ -50,11 +48,6 @@ public partial class OrderPage : UserControl
         NavigationService.NavigateTo<OrderPage>();
     }
 
-    private void Leave(object? sender, RoutedEventArgs e)
-    {
-        NavigationService.NavigateTo<AuthPage>();
-    }
-
     private void UsersList(object? sender, RoutedEventArgs e)
     {
         NavigationService.NavigateTo<UsersListPage>();
@@ -63,6 +56,11 @@ public partial class OrderPage : UserControl
     private void EmployeeList(object? sender, RoutedEventArgs e)
     {
         NavigationService.NavigateTo<EmployeeListPage>();
+    }
+
+    private void Leave(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<AuthPage>();
     }
 
     private async void DataGrid_DoubleTapped(object? sender, TappedEventArgs e)

@@ -26,6 +26,7 @@ public partial class EmployeeListPage : UserControl
         {
             UsersListBtn.IsVisible = false;
             EmployeeListBtn.IsVisible = false;
+            AllOrdersListBtn.IsVisible = false;
             
         }
     }
@@ -112,5 +113,10 @@ public partial class EmployeeListPage : UserControl
         
         
         DataGridUsers.ItemsSource = App.DbContext.Users.Where(x => x.IdRole == 2).ToList();
+    }
+
+    private void AllOrdersListBtn_OnClick(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<AllUsersOrders>();
     }
 }

@@ -20,6 +20,7 @@
                 <Button Content="История заказов" Margin="0,5" Click="OrderHistory"/>
                 <Button Content="Список пользователей" Name="UsersListBtn" Margin="0,5" Click="UsersList"/>
                 <Button Content="Список сотрудников" Name="EmployeeListBtn" Margin="0,5" Click="EmployeeList"/>
+                <Button Content="Все покупки пользователей " Name="AllOrdersListBtn" Margin="0,5" Click="AllOrdersListBtn_OnClick"/>
                 <StackPanel VerticalAlignment="Bottom">
                     <Button Content="Выход" Margin="0,5" Click="Leave"/>
                 </StackPanel>
@@ -30,19 +31,9 @@
         <Grid Grid.Column="1" RowDefinitions="*, Auto">
             <DataGrid  DoubleTapped="DataGrid_DoubleTapped" IsReadOnly="True" Name="DataGridItems" Grid.Row="0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Название товара" Binding="{Binding IdProductNavigation.NameProduct}"/>
-                    <DataGridTextColumn Header="Количество" Binding="{Binding ProdCount}"/>
+                    <DataGridTextColumn Header="Номер заказа" Binding="{Binding IdOrder}"/>
                     <DataGridTextColumn Header="Итоговая цена" Binding="{Binding TotalAmount}"/>
                     <DataGridTextColumn Header="Статус заказа" Binding="{Binding Status}"/>
-                    
-                    <DataGridTemplateColumn Header="Delete" Width="50">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Click="DeleteButton_Click" Content="🗑️"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-				
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

@@ -20,6 +20,7 @@
                 <Button Content="История заказов" Margin="0,5" Click="OrderHistory"/>
                 <Button Content="Список пользователей" Name="UsersListBtn" Margin="0,5" Click="UsersList"/>
                 <Button Content="Список сотрудников" Name="EmployeeListBtn" Margin="0,5" Click="EmployeeList"/>
+                <Button Content="Все покупки пользователей " Name="AllOrdersListBtn" Margin="0,5" Click="AllOrdersListBtn_OnClick"/>
                 <StackPanel VerticalAlignment="Bottom">
                     <Button Content="Выход" Margin="0,5" Click="Leave"/>
                 </StackPanel>
@@ -47,6 +48,8 @@
 				
                 </DataGrid.Columns>
             </DataGrid>
+            
+            <Button Content="Заказать" Name="OrderExBtn"  Grid.Row="1" Click="Order_Click"/>
         </Grid>
     </Grid>
 </UserControl>

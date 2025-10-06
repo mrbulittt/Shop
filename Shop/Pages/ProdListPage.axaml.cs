@@ -25,7 +25,7 @@ public partial class ProdListPage : UserControl
             UsersListBtn.IsVisible = false;
             EmployeeListBtn.IsVisible = false;
             AddBtn.IsVisible = false;
-            
+            AllOrdersListBtn.IsVisible = false;
         }
     }
 
@@ -88,12 +88,34 @@ public partial class ProdListPage : UserControl
 
     private void BasketAdd_Click(object? sender, RoutedEventArgs e)
     {
+        if (sender is Button button && button.DataContext is Product product)
+        {
+            var existingBasketItem = App.DbContext.Baskets
+                .FirstOrDefault(b => b.IdProduct == product.IdProduct && 
+                                     b.IdUser == VariableData.authenticatedUser.IdUser);
         
+            if (existingBasketItem != null)
+            {
+                existingBasketItem.ProdCount += 1;
+                existingBasketItem.ResultPrice = product.Price * existingBasketItem.ProdCount;
+            }
+            else
+            {
+                var basketItem = new Basket()
+                {
+                    IdProduct = product.IdProduct,
+                    ProdCount = 1,
+                    IdUser = VariableData.authenticatedUser.IdUser,
+                    ResultPrice = product.Price 
+                };
+                App.DbContext.Baskets.Add(basketItem);
+            }
+        
+            App.DbContext.SaveChanges();
+        }
     }
 
-    private void BasketDelete_Click(object? sender, RoutedEventArgs e)
-    {
-    }
+    
 
     private void UsersList(object? sender, RoutedEventArgs e)
     {
@@ -103,5 +125,10 @@ public partial class ProdListPage : UserControl
     private void EmployeeList(object? sender, RoutedEventArgs e)
     {
         NavigationService.NavigateTo<EmployeeListPage>();
+    }
+
+    private void AllOrdersListBtn_OnClick(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<AllUsersOrders>();
     }
 }

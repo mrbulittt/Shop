@@ -20,6 +20,7 @@
                 <Button Content="История заказов" Margin="0,5" Click="OrderHistory"/>
                 <Button Content="Список пользователей" Name="UsersListBtn" Margin="0,5" Click="UsersList"/>
                 <Button Content="Список сотрудников" Name="EmployeeListBtn" Margin="0,5" Click="EmployeeList"/>
+                <Button Content="Все покупки пользователей " Name="AllOrdersListBtn" Margin="0,5" Click="AllOrdersListBtn_OnClick"/>
                 <StackPanel VerticalAlignment="Bottom">
                     <Button Content="Выход" Margin="0,5" Click="Leave"/>
                 </StackPanel>
@@ -35,15 +36,6 @@
                     <DataGridTextColumn Header="Описание" Binding="{Binding Description}"/>
                     <DataGridTextColumn Header="Категория" Binding="{Binding IdCategoryNavigation.NameCategory}"/>
 
-                    
-                    <DataGridTemplateColumn Header="Убрать из корзины">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Click="BasketDelete_Click" Content="-"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    
                     <DataGridTemplateColumn Header="Добавить в корзину">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

@@ -5,7 +5,10 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Microsoft.EntityFrameworkCore;
+using MsBox.Avalonia;
 using Shop.Data;
+using Tmds.DBus.Protocol;
 
 namespace Shop.Pages;
 
@@ -14,8 +17,8 @@ public partial class BasketPage : UserControl
     public BasketPage()
     {
         InitializeComponent();
-        
-        
+
+        DataGridItems.ItemsSource = App.DbContext.Baskets.Where(x => x.IdUser == VariableData.authenticatedUser.IdUser).ToList();
         
         if (VariableData.authenticatedUser.IdRole == 2)
         {
@@ -25,6 +28,7 @@ public partial class BasketPage : UserControl
         {
             UsersListBtn.IsVisible = false;
             EmployeeListBtn.IsVisible = false;
+            AllOrdersListBtn.IsVisible = false;
         }
     }
 
@@ -78,13 +82,60 @@ public partial class BasketPage : UserControl
 
         Console.WriteLine((selectedBasket == null) ? "Item not found" : "Item founded");
 
-        if (selectedBasket == null) return;
-
-        VariableData.selectedBasket = selectedBasket;
-
-        App.DbContext.Baskets.Remove(selectedBasket);
+        if (selectedBasket != null)
+        {
+            if (selectedBasket.ProdCount > 1)
+            {
+                selectedBasket.ProdCount -= 1;
+                selectedBasket.ResultPrice = selectedBasket.IdProductNavigation.Price * selectedBasket.ProdCount;
+            }
+            else
+            {
+                App.DbContext.Baskets.Remove(selectedBasket);
+            }
+        }
+       
+        
         App.DbContext.SaveChanges();
 
-        DataGridItems.ItemsSource = App.DbContext.Baskets.ToList();
+        DataGridItems.ItemsSource = App.DbContext.Baskets.Where(x => x.IdUser == VariableData.authenticatedUser.IdUser).ToList();
+    }
+
+    private void Order_Click(object? sender, RoutedEventArgs e)
+    {
+        var userBasketItems = App.DbContext.Baskets
+            .Where(b => b.IdUser == VariableData.authenticatedUser.IdUser && b.IdOrder == null)
+            .Include(b => b.IdProductNavigation)
+            .ToList();
+
+        if (!userBasketItems.Any())
+        {
+            MessageBoxManager.GetMessageBoxStandard("Уведомление", "Корзина пуста");
+            return;
+        }
+
+        
+        var newOrder = new Order
+        {
+            IdUser = VariableData.authenticatedUser.IdUser,
+            Status = "Оформлен",
+            TotalAmount = (int)userBasketItems.Sum(b => b.ResultPrice ?? 0)
+        };
+
+        App.DbContext.Orders.Add(newOrder);
+        App.DbContext.SaveChanges();
+        
+
+        MessageBoxManager.GetMessageBoxStandard("Уведомление",$"Заказ №{newOrder.IdOrder} оформлен успешно!");
+    
+        // Показываем только товары не в заказах (в корзине)
+        DataGridItems.ItemsSource = App.DbContext.Baskets
+            .Where(x => x.IdUser == VariableData.authenticatedUser.IdUser && x.IdOrder == null)
+            .ToList();
+    }
+
+    private void AllOrdersListBtn_OnClick(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<AllUsersOrders>();
     }
 }

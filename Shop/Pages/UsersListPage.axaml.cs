@@ -25,6 +25,7 @@ public partial class UsersListPage : UserControl
         {
             UsersListBtn.IsVisible = false;
             EmployeeListBtn.IsVisible = false;
+            AllOrdersListBtn.IsVisible = false;
         }
     }
 
@@ -108,5 +109,10 @@ public partial class UsersListPage : UserControl
     private void EmployeeList(object? sender, RoutedEventArgs e)
     {
         NavigationService.NavigateTo<EmployeeListPage>();
+    }
+
+    private void AllOrdersListBtn_OnClick(object? sender, RoutedEventArgs e)
+    {
+        NavigationService.NavigateTo<AllUsersOrders>();
     }
 }
