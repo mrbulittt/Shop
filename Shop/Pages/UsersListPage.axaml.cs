@@ -6,6 +6,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Shop.Data;
+using Shop.Views;
 
 namespace Shop.Pages;
 
@@ -16,7 +17,15 @@ public partial class UsersListPage : UserControl
         InitializeComponent();
         DataGridUsers.ItemsSource = App.DbContext.Users.Where(x => x.IdRole == 3).ToList();
         
-
+        if (VariableData.authenticatedUser.IdRole == 2)
+        {
+            EmployeeListBtn.IsVisible = false;
+        }
+        if (VariableData.authenticatedUser.IdRole == 3)
+        {
+            UsersListBtn.IsVisible = false;
+            EmployeeListBtn.IsVisible = false;
+        }
     }
 
     private void DeleteButton_Click(object? sender, RoutedEventArgs e)
@@ -40,12 +49,18 @@ public partial class UsersListPage : UserControl
 
     }
 
-    private void AddButton_Click(object? sender, RoutedEventArgs e)
+    private async void AddButton_Click(object? sender, RoutedEventArgs e)
     {
+        var parent = this.VisualRoot as Window;
+        var addwinwUser = new AddAndChangeUser();
+        await addwinwUser.ShowDialog(parent);
     }
 
-    private void DataGrid_DoubleTapped(object? sender, TappedEventArgs e)
+    private async void DataGrid_DoubleTapped(object? sender, TappedEventArgs e)
     {
+        var parent = this.VisualRoot as Window;
+        var addwinwUser = new AddAndChangeUser();
+        await addwinwUser.ShowDialog(parent);
     }
 
     private void MainPage(object? sender, RoutedEventArgs e)

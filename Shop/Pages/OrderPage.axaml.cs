@@ -11,6 +11,16 @@ public partial class OrderPage : UserControl
     public OrderPage()
     {
         InitializeComponent();
+        
+        if (VariableData.authenticatedUser.IdRole == 2)
+        {
+            EmployeeListBtn.IsVisible = false;
+        }
+        if (VariableData.authenticatedUser.IdRole == 3)
+        {
+            UsersListBtn.IsVisible = false;
+            EmployeeListBtn.IsVisible = false;
+        }
     }
 
     private void MainPage(object? sender, RoutedEventArgs e)

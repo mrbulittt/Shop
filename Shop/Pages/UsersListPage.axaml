@@ -18,8 +18,8 @@
                 <Button Content="Список продуктов" Margin="0,5" Click="ProdList"/>
                 <Button Content="Корзина" Margin="0,5" Click="Basket"/>
                 <Button Content="История заказов" Margin="0,5" Click="OrderHistory"/>
-                <Button Content="Список пользователей" Margin="0,5" Click="UsersList"/>
-                <Button Content="Список сотрудников" Margin="0,5" Click="EmployeeList"/>
+                <Button Content="Список пользователей" Name="UsersListBtn" Margin="0,5" Click="UsersList"/>
+                <Button Content="Список сотрудников" Name="EmployeeListBtn" Margin="0,5" Click="EmployeeList"/>
                 <StackPanel VerticalAlignment="Bottom">
                     <Button Content="Выход" Margin="0,5" Click="Leave"/>
                 </StackPanel>
@@ -40,14 +40,14 @@
                     <DataGridTemplateColumn Header="Delete" Width="50">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Click="DeleteButton_Click" Content="🗑️"/>
+                                <Button Click="DeleteButton_Click" Name="DeleteUserBtn" Content="🗑️"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 				
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Content="Добавление" Grid.Row="1" Click="AddButton_Click"/>
+            <Button Content="Добавление" Name="AddBtn" Grid.Row="1" Click="AddButton_Click"/>
 
         </Grid>
     </Grid>

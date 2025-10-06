@@ -20,8 +20,8 @@
                 <Button Content="Список продуктов" Margin="0,5" Click="ProductList"/>
                 <Button Content="Корзина" Margin="0,5" Click="Basket"/>
                 <Button Content="История заказов" Margin="0,5" Click="OrderHistory"/>
-                <Button Content="Список пользователей" Margin="0,5" Click="UsersList"/>
-                <Button Content="Список сотрудников" Margin="0,5" Click="EmployeeList"/>
+                <Button Content="Список пользователей" Name="UsersListBtn" Margin="0,5" Click="UsersList"/>
+                <Button Content="Список сотрудников" Name="EmployeeListBtn" Margin="0,5" Click="EmployeeList"/>
                 <StackPanel VerticalAlignment="Bottom">
                     <Button Content="Выход" Margin="0,5" Click="Leave"/>
                 </StackPanel>

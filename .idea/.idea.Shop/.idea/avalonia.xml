@@ -7,9 +7,15 @@
         <entry key="Shop/MainWindow.axaml" value="Shop/Shop.csproj" />
         <entry key="Shop/Pages/AuthPage.axaml" value="Shop/Shop.csproj" />
         <entry key="Shop/Pages/BasketPage.axaml" value="Shop/Shop.csproj" />
+        <entry key="Shop/Pages/EmployeeListPage.axaml" value="Shop/Shop.csproj" />
         <entry key="Shop/Pages/MainPage.axaml" value="Shop/Shop.csproj" />
         <entry key="Shop/Pages/OrderPage.axaml" value="Shop/Shop.csproj" />
         <entry key="Shop/Pages/ProdListPage.axaml" value="Shop/Shop.csproj" />
+        <entry key="Shop/Pages/UsersAndEmployeeChange.axaml" value="Shop/Shop.csproj" />
+        <entry key="Shop/Pages/UsersListPage.axaml" value="Shop/Shop.csproj" />
+        <entry key="Shop/Views/AddAndChangeEmployee.axaml" value="Shop/Shop.csproj" />
+        <entry key="Shop/Views/AddAndChangeProd.axaml" value="Shop/Shop.csproj" />
+        <entry key="Shop/Views/AddAndChangeUser.axaml" value="Shop/Shop.csproj" />
         <entry key="Shop/Views/RegisterNewUser.axaml" value="Shop/Shop.csproj" />
       </map>
     </option>

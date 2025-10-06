@@ -14,6 +14,18 @@ public partial class ProdListPage : UserControl
     {
         InitializeComponent();
         DataGridItems.ItemsSource = App.DbContext.Products.ToList();
+        
+        if (VariableData.authenticatedUser.IdRole == 2)
+        {
+            EmployeeListBtn.IsVisible = false;
+        }
+        if (VariableData.authenticatedUser.IdRole == 3)
+        {
+            UsersListBtn.IsVisible = false;
+            EmployeeListBtn.IsVisible = false;
+            AddBtn.IsVisible = false;
+            
+        }
     }
 
     private void MainPage(object? sender, RoutedEventArgs e)
@@ -51,6 +63,10 @@ public partial class ProdListPage : UserControl
 
     private void AddButton_Click(object? sender, RoutedEventArgs e)
     {
+        if (VariableData.authenticatedUser.IdUser == 3)
+        {
+            IsVisible = false;
+        }
     }
 
     private void BasketAdd_Click(object? sender, RoutedEventArgs e)
