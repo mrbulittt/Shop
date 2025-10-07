@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
@@ -18,7 +19,7 @@ public partial class BasketPage : UserControl
     {
         InitializeComponent();
 
-        DataGridItems.ItemsSource = App.DbContext.Baskets.Where(x => x.IdUser == VariableData.authenticatedUser.IdUser).ToList();
+        DataGridItems.ItemsSource = App.DbContext.Baskets.Where(x => x.IdUser == VariableData.authenticatedUser.IdUser && x.IsOrder == false).ToList();
         
         if (VariableData.authenticatedUser.IdRole == 2)
         {
@@ -98,40 +99,26 @@ public partial class BasketPage : UserControl
         
         App.DbContext.SaveChanges();
 
-        DataGridItems.ItemsSource = App.DbContext.Baskets.Where(x => x.IdUser == VariableData.authenticatedUser.IdUser).ToList();
+        DataGridItems.ItemsSource = App.DbContext.Baskets.Where(x => x.IdUser == VariableData.authenticatedUser.IdUser && x.IsOrder == false).ToList();
     }
 
     private void Order_Click(object? sender, RoutedEventArgs e)
     {
-        var userBasketItems = App.DbContext.Baskets
-            .Where(b => b.IdUser == VariableData.authenticatedUser.IdUser && b.IdOrder == null)
-            .Include(b => b.IdProductNavigation)
-            .ToList();
-
-        if (!userBasketItems.Any())
+        if (sender is Button button && button.DataContext is Basket basket)
         {
-            MessageBoxManager.GetMessageBoxStandard("Уведомление", "Корзина пуста");
-            return;
+            var existingOrderItem = VariableData.selectedBasket;
+
+         if (existingOrderItem != null)
+         {
+             existingOrderItem.IsOrder = true;
+             App.DbContext.Baskets.Update(existingOrderItem);
+             App.DbContext.SaveChanges();
+         }
+         
+         
+         
+         DataGridItems.ItemsSource = App.DbContext.Baskets.Where(x => x.IdUser == VariableData.authenticatedUser.IdUser && x.IsOrder == false).ToList();
         }
-
-        
-        var newOrder = new Order
-        {
-            IdUser = VariableData.authenticatedUser.IdUser,
-            Status = "Оформлен",
-            TotalAmount = (int)userBasketItems.Sum(b => b.ResultPrice ?? 0)
-        };
-
-        App.DbContext.Orders.Add(newOrder);
-        App.DbContext.SaveChanges();
-        
-
-        MessageBoxManager.GetMessageBoxStandard("Уведомление",$"Заказ №{newOrder.IdOrder} оформлен успешно!");
-    
-        // Показываем только товары не в заказах (в корзине)
-        DataGridItems.ItemsSource = App.DbContext.Baskets
-            .Where(x => x.IdUser == VariableData.authenticatedUser.IdUser && x.IdOrder == null)
-            .ToList();
     }
 
     private void AllOrdersListBtn_OnClick(object? sender, RoutedEventArgs e)

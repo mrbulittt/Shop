@@ -11,17 +11,13 @@ public partial class Basket
 
     public int IdUser { get; set; }
 
-    public int? IdOrder { get; set; }
-
     public int? ProdCount { get; set; }
 
     public decimal? ResultPrice { get; set; }
 
-    public virtual Order? IdOrderNavigation { get; set; }
+    public bool? IsOrder { get; set; }
 
     public virtual Product IdProductNavigation { get; set; } = null!;
 
     public virtual User IdUserNavigation { get; set; } = null!;
-    
-    
 }

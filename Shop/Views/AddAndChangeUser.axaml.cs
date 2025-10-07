@@ -35,7 +35,10 @@ public partial class AddAndChangeUser : Window
         {
             App.DbContext.Users.Add(thisUser);
         }
-        
+        else
+        {
+            App.DbContext.Update(thisUser);
+        }
 
         App.DbContext.SaveChanges();
         this.Close();

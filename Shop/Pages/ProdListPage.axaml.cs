@@ -6,6 +6,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Shop.Data;
+using Shop.Views;
 
 namespace Shop.Pages;
 
@@ -54,8 +55,19 @@ public partial class ProdListPage : UserControl
         NavigationService.NavigateTo<AuthPage>();
     }
 
-    private void DataGrid_DoubleTapped(object? sender, TappedEventArgs e)
-    {
+    private async void DataGrid_DoubleTapped(object? sender, TappedEventArgs e)
+    { 
+        var selectedProduct = DataGridItems.SelectedItem as Product;
+        if (selectedProduct == null) return;
+        
+        VariableData.selectedProduct = selectedProduct;
+        VariableData.selectedProdCategory = selectedProduct.IdCategoryNavigation;
+        
+        var parent = this.VisualRoot as Window;
+        var changeProduct = new AddAndChangeProd();
+        await changeProduct.ShowDialog(parent);
+        
+        DataGridItems.ItemsSource = App.DbContext.Products.ToList();
     }
 
     private void DeleteButton_Click(object? sender, RoutedEventArgs e)

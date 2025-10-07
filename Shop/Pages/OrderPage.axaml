@@ -32,6 +32,7 @@
             <DataGrid  DoubleTapped="DataGrid_DoubleTapped" IsReadOnly="True" Name="DataGridItems" Grid.Row="0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Номер заказа" Binding="{Binding IdOrder}"/>
+                    <DataGridTextColumn Header="Названия продуктов" Binding="{Binding IdProduct.NameProduct}"/>
                     <DataGridTextColumn Header="Итоговая цена" Binding="{Binding TotalAmount}"/>
                     <DataGridTextColumn Header="Статус заказа" Binding="{Binding Status}"/>
                 </DataGrid.Columns>

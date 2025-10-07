@@ -17,7 +17,6 @@ namespace Shop
             DbContext.Roles.ToList();
             DbContext.Users.ToList();
             DbContext.Products.ToList();
-            DbContext.Orders.ToList();
             DbContext.Baskets.ToList();
             DbContext.ProdCategories.ToList();
            

@@ -37,6 +37,10 @@ public partial class AddAndChangeEmployee : Window
         {
             App.DbContext.Users.Add(thisUser);
         }
+        else
+        {
+            App.DbContext.Update(thisUser);
+        }
         
         
         App.DbContext.SaveChanges();

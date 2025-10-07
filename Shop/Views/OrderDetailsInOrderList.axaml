@@ -1,0 +1,22 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Shop.Views.OrderDetailsInOrderList"
+        Title="OrderDetails">
+    <Grid  RowDefinitions="*, Auto">
+        <DataGrid   IsReadOnly="True" Name="DataGridItems" Grid.Row="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название товара" Binding="{Binding IdProductNavigation.NameProduct}"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding IdProductNavigation.Price}"/>
+                <DataGridTextColumn Header="Описание" Binding="{Binding IdProductNavigation.Description}"/>
+                <DataGridTextColumn Header="Категория" Binding="{Binding IdProductNavigation.IdCategoryNavigation.NameCategory}"/>
+                <DataGridTextColumn Header="Имя заказчика" Binding="{Binding IdUserNavigation.FullName}"/>
+                <DataGridTextColumn Header="Количество" Binding="{Binding ProdCount}"/>
+                <DataGridTextColumn Header="Итоговая цена заказа" Binding="{Binding ResultPrice}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+    </Grid>
+</Window>

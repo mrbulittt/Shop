@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace Shop.Views;
 
-public partial class OrderDetails : Window
+public partial class OrderDetailsInAllUsers : Window
 {
-    public OrderDetails()
+    public OrderDetailsInAllUsers()
     {
         InitializeComponent();
     }
