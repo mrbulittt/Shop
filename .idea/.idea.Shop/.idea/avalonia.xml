@@ -17,6 +17,7 @@
         <entry key="Shop/Views/AddAndChangeEmployee.axaml" value="Shop/Shop.csproj" />
         <entry key="Shop/Views/AddAndChangeProd.axaml" value="Shop/Shop.csproj" />
         <entry key="Shop/Views/AddAndChangeUser.axaml" value="Shop/Shop.csproj" />
+        <entry key="Shop/Views/CheckProdInformationForUsers.axaml" value="Shop/Shop.csproj" />
         <entry key="Shop/Views/OrderDetails.axaml" value="Shop/Shop.csproj" />
         <entry key="Shop/Views/OrderDetailsInAllUsers.axaml" value="Shop/Shop.csproj" />
         <entry key="Shop/Views/OrderDetailsInOrderList.axaml" value="Shop/Shop.csproj" />

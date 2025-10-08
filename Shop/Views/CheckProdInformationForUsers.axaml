@@ -2,13 +2,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="650"
-        Width="1000" Height="650"
-        x:Class="Shop.Views.AddAndChangeProd"
-        Title="AddAndChangeProd">
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Shop.Views.CheckProdInformationForUsers"
+        Title="CheckProdInformationForUsers">
     <Grid RowDefinitions="Auto, Auto,Auto,Auto,Auto,Auto,Auto">
                 <TextBlock HorizontalAlignment="Center" FontSize="35"
-                           FontWeight="Bold">Добавление/Редактирование продукта</TextBlock>
+                           FontWeight="Bold">Информация о продукте продукта</TextBlock>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <StackPanel>
                 <StackPanel Margin="10">
@@ -28,7 +27,7 @@
                 </StackPanel>
                 <StackPanel Grid.Row="2" Margin="10" Orientation="Horizontal">
                     <TextBlock Text="Категория:" FontSize="20" Grid.Row="5" HorizontalAlignment="Right"/>
-                    <ComboBox Name="ComboCategory" SelectionChanged="ComboCategory_OnSelectionChanged" Grid.Row="6"  HorizontalAlignment="Right" Width="200"  >
+                    <ComboBox Name="ComboCategory"  Grid.Row="6"  HorizontalAlignment="Right" Width="200"  >
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Name="NameCategoryText" FontWeight="Bold" Text="{Binding NameCategory}"/>
@@ -36,7 +35,6 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </StackPanel>
-                <Button Content="Сохранить" Name="SaveBtn" FontSize="20" Margin="10" Click="SaveButton"/>
             </StackPanel>
         </StackPanel>
         </Grid>

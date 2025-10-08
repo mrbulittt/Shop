@@ -1,23 +1,22 @@
 ﻿using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
 using Shop.Data;
 
 namespace Shop.Views;
 
-public partial class AddAndChangeProd : Window
+public partial class CheckProdInformationForUsers : Window
 {
-    public AddAndChangeProd()
+    public CheckProdInformationForUsers()
     {
         InitializeComponent();
         DataContext = VariableData.selectedProduct;
         
         ComboCategory.ItemsSource = App.DbContext.ProdCategories.ToList();
 
-        ComboCategory.SelectionChanged += ComboCategory_OnSelectionChanged;
+        
         if (VariableData.selectedProduct == null)
         {
             DataContext = new Product();
@@ -29,40 +28,11 @@ public partial class AddAndChangeProd : Window
         }
         DataContext = VariableData.selectedProduct;
         
-        if (VariableData.authenticatedUser.IdRole == 3)
-        {
-            SaveBtn.IsVisible = false;
-        }
+        
         
         UpdateImg();
     }
-
-    private void SaveButton(object? sender, RoutedEventArgs e)
-    {
-        var selectedCategory = ComboCategory.SelectedItem as ProdCategory;
-        
-        if(string.IsNullOrEmpty(NameProdText.Text) || string.IsNullOrEmpty(DescriptionText.Text) 
-                                                   || string.IsNullOrEmpty(PriceText.Text) || ComboCategory.SelectedItem == null) return;
-        
-        var prodDataContext = DataContext as Product;
-        if (VariableData.selectedProduct == null)
-        {
-            App.DbContext.Products.Add(prodDataContext);
-        }
-        else
-        {
-            App.DbContext.Update(prodDataContext);
-        }
-        
-        App.DbContext.SaveChanges();
-        this.Close();
-    }
-
-    private void ComboCategory_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        UpdateImg();
-    }
-
+    
     private void UpdateImg()
     {
         if (ComboCategory.SelectedItem is ProdCategory category)

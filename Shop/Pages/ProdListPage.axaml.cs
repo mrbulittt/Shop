@@ -57,8 +57,9 @@ public partial class ProdListPage : UserControl
 
     private async void DataGrid_DoubleTapped(object? sender, TappedEventArgs e)
     {
-        if (VariableData.authenticatedUser.IdRole == 2 || VariableData.authenticatedUser.IdRole == 1)
+        if (VariableData.authenticatedUser.IdRole == 1 || VariableData.authenticatedUser.IdRole == 2)
         {
+
             var selectedProduct = DataGridItems.SelectedItem as Product;
             if (selectedProduct == null) return;
 
@@ -70,8 +71,22 @@ public partial class ProdListPage : UserControl
             await changeProduct.ShowDialog(parent);
 
             DataGridItems.ItemsSource = App.DbContext.Products.ToList();
+
         }
-        else return;
+        else
+        {
+            var selectedProduct = DataGridItems.SelectedItem as Product;
+            if (selectedProduct == null) return;
+
+            VariableData.selectedProduct = selectedProduct;
+            VariableData.selectedProdCategory = selectedProduct.IdCategoryNavigation;
+
+            var parent = this.VisualRoot as Window;
+            var viewProd = new CheckProdInformationForUsers();
+            await viewProd.ShowDialog(parent);
+
+            DataGridItems.ItemsSource = App.DbContext.Products.ToList();
+        }
     }
 
     private void DeleteButton_Click(object? sender, RoutedEventArgs e)
