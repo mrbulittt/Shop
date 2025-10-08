@@ -17,6 +17,10 @@ public partial class Basket
 
     public bool? IsOrder { get; set; }
 
+    public int? IdOrder { get; set; }
+
+    public virtual Order? IdOrderNavigation { get; set; }
+
     public virtual Product IdProductNavigation { get; set; } = null!;
 
     public virtual User IdUserNavigation { get; set; } = null!;

@@ -102,21 +102,49 @@ public partial class BasketPage : UserControl
         DataGridItems.ItemsSource = App.DbContext.Baskets.Where(x => x.IdUser == VariableData.authenticatedUser.IdUser && x.IsOrder == false).ToList();
     }
 
-    private void Order_Click(object? sender, RoutedEventArgs e)
+    private async void Order_Click(object? sender, RoutedEventArgs e)
     {
-        var basket = App.DbContext.Baskets.FirstOrDefault(x => x.IdUser == VariableData.authenticatedUser.IdUser && x.IsOrder == false);
+        var userBaskets = App.DbContext.Baskets
+            .Where(x => x.IdUser == VariableData.authenticatedUser.IdUser && x.IsOrder == false)
+            .ToList();
 
-         if (basket != null)
-         {
-             basket.IsOrder = true;
-             App.DbContext.Baskets.Update(basket);
-             App.DbContext.SaveChanges();
-         }
-         
-         
-         
-         DataGridItems.ItemsSource = App.DbContext.Baskets.Where(x => x.IdUser == VariableData.authenticatedUser.IdUser && x.IsOrder == false).ToList();
+        if (userBaskets != null && userBaskets.Any())
+        {
+            DateTime orderDate = DateTime.UtcNow;
         
+            var newOrder = new Order
+            {
+                IdUser = VariableData.authenticatedUser.IdUser,
+                OrderDate = orderDate,
+                TotalAmount = userBaskets.Sum(x => x.ResultPrice * x.ProdCount),
+                Status = "Оформлен"
+            };
+        
+            App.DbContext.Orders.Add(newOrder);
+            App.DbContext.SaveChanges(); 
+        
+            foreach (var basket in userBaskets)
+            {
+                basket.IsOrder = true;
+                basket.IdOrder = newOrder.IdOrder; 
+                App.DbContext.Baskets.Update(basket);
+            }
+        
+            App.DbContext.SaveChanges();
+
+            MessageBoxManager.GetMessageBoxStandard("ЗАКАЗ ОФОРМЛЕН", $"Заказ №{newOrder.IdOrder} оформлен успешно!\n" +
+                                                        $"Дата: {orderDate:dd.MM.yyyy HH:mm}\n" +
+                                                        $"Сумма: {newOrder.TotalAmount} руб.\n" +
+                                                        $"Товаров: {userBaskets.Count} шт.").ShowAsync();
+        }
+        else
+        {
+            MessageBoxManager.GetMessageBoxStandard("ОШИБКА","Корзина пуста! Добавьте товары перед оформлением заказа.").ShowAsync();
+        }
+
+        DataGridItems.ItemsSource = App.DbContext.Baskets
+            .Where(x => x.IdUser == VariableData.authenticatedUser.IdUser && x.IsOrder == false)
+            .ToList();
     }
 
     private void AllOrdersListBtn_OnClick(object? sender, RoutedEventArgs e)

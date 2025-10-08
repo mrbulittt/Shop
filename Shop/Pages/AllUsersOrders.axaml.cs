@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Shop.Data;
 using Shop.Views;
 
 namespace Shop.Pages;
@@ -14,7 +15,7 @@ public partial class AllUsersOrders : UserControl
     {
         InitializeComponent();
 
-        DataGridItems.ItemsSource = App.DbContext.Baskets.Where(x => x.IsOrder == true).ToList();
+        DataGridItems.ItemsSource = App.DbContext.Orders.ToList();
         
         if (VariableData.authenticatedUser.IdRole == 2)
         {
@@ -65,9 +66,16 @@ public partial class AllUsersOrders : UserControl
 
     private async void DataGrid_DoubleTapped(object? sender, TappedEventArgs e)
     {
+        var selectedOrder = DataGridItems.SelectedItem as Order;
+        if (selectedOrder == null) return;
+    
+        VariableData.selectedOrder = selectedOrder;
+        
         var parent = this.VisualRoot as Window;
         var checkUsersOrder = new OrderDetailsInAllUsers();
         await checkUsersOrder.ShowDialog(parent);
+        
+        DataGridItems.ItemsSource = App.DbContext.Orders.ToList();
     }
 
     private void AllOrdersListBtn_OnClick(object? sender, RoutedEventArgs e)

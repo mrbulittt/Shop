@@ -17,6 +17,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Basket> Baskets { get; set; }
 
+    public virtual DbSet<Order> Orders { get; set; }
+
     public virtual DbSet<ProdCategory> ProdCategories { get; set; }
 
     public virtual DbSet<Product> Products { get; set; }
@@ -38,13 +40,20 @@ public partial class AppDbContext : DbContext
             entity.ToTable("Basket");
 
             entity.Property(e => e.IdBasket).HasColumnName("id_basket");
+            entity.Property(e => e.IdOrder).HasColumnName("id_order");
             entity.Property(e => e.IdProduct).HasColumnName("id_product");
             entity.Property(e => e.IdUser).HasColumnName("id_user");
-            entity.Property(e => e.IsOrder).HasColumnName("is_order");
+            entity.Property(e => e.IsOrder)
+                .HasDefaultValue(false)
+                .HasColumnName("is_order");
             entity.Property(e => e.ProdCount).HasColumnName("prod_count");
             entity.Property(e => e.ResultPrice)
                 .HasPrecision(10, 2)
                 .HasColumnName("result_price");
+
+            entity.HasOne(d => d.IdOrderNavigation).WithMany(p => p.Baskets)
+                .HasForeignKey(d => d.IdOrder)
+                .HasConstraintName("Basket_id_order_fkey");
 
             entity.HasOne(d => d.IdProductNavigation).WithMany(p => p.Baskets)
                 .HasForeignKey(d => d.IdProduct)
@@ -55,6 +64,25 @@ public partial class AppDbContext : DbContext
                 .HasForeignKey(d => d.IdUser)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Basket_id_user_fkey");
+        });
+
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.HasKey(e => e.IdOrder).HasName("Order_pkey");
+
+            entity.ToTable("Order");
+
+            entity.Property(e => e.IdOrder).HasColumnName("id_order");
+            entity.Property(e => e.IdUser).HasColumnName("id_user");
+            entity.Property(e => e.OrderDate).HasColumnName("order_date");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.TotalAmount)
+                .HasPrecision(10, 2)
+                .HasColumnName("total_amount");
+
+            entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.IdUser)
+                .HasConstraintName("Order_id_user_fkey");
         });
 
         modelBuilder.Entity<ProdCategory>(entity =>

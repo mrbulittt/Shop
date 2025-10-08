@@ -17,7 +17,7 @@ public partial class OrderPage : UserControl
     {
         InitializeComponent();
 
-        DataGridItems.ItemsSource = App.DbContext.Baskets.Where(x => x.IsOrder == true && x.IdUser == VariableData.authenticatedUser.IdUser).ToList();
+        DataGridItems.ItemsSource = App.DbContext.Orders.Where(x => x.IdUser == VariableData.authenticatedUser.IdUser).ToList();
         
         if (VariableData.authenticatedUser.IdRole == 2)
         {
@@ -68,15 +68,16 @@ public partial class OrderPage : UserControl
 
     private async void DataGrid_DoubleTapped(object? sender, TappedEventArgs e)
     {
-        var selectedOrder = DataGridItems.SelectedItem as Basket;
+        var selectedOrder = DataGridItems.SelectedItem as Order;
         if (selectedOrder == null) return;
-        VariableData.selectedBasket = selectedOrder;
+    
+        VariableData.selectedOrder = selectedOrder;
         
         var parent = this.VisualRoot as Window;
         var checkUsersOrder = new OrderDetailsInOrderList();
         await checkUsersOrder.ShowDialog(parent);
         
-        DataGridItems.ItemsSource = App.DbContext.Baskets.Where(x => x.IsOrder == true && x.IdUser == VariableData.authenticatedUser.IdUser).ToList();
+        DataGridItems.ItemsSource = App.DbContext.Orders.Where(x => x.IdUser == VariableData.authenticatedUser.IdUser).ToList();
     }
 
     private void AllOrdersListBtn_OnClick(object? sender, RoutedEventArgs e)

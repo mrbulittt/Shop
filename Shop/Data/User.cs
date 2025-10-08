@@ -24,4 +24,6 @@ public partial class User
     public virtual ICollection<Basket> Baskets { get; set; } = new List<Basket>();
 
     public virtual Role? IdRoleNavigation { get; set; }
+
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

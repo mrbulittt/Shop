@@ -11,10 +11,9 @@
                 <DataGridTextColumn Header="Название товара" Binding="{Binding NameProduct}"/>
                 <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
                 <DataGridTextColumn Header="Описание" Binding="{Binding Description}"/>
-                <DataGridTextColumn Header="Категория" Binding="{Binding IdCategoryNavigation.NameCategory}"/>
-                <DataGridTextColumn Header="Номер заказчика" Binding="{Binding IdUser}"/>
+                <DataGridTextColumn Header="Категория" Binding="{Binding NameCategory}"/>
                 <DataGridTextColumn Header="Количество" Binding="{Binding ProdCount}"/>
-                <DataGridTextColumn Header="Итоговая цена заказа" Binding="{Binding ResultPrice}"/>
+                <DataGridTextColumn Header="Итоговая цена за товар" Binding="{Binding ResultPrice}"/>
             </DataGrid.Columns>
         </DataGrid>
         
