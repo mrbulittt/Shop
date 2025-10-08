@@ -104,21 +104,19 @@ public partial class BasketPage : UserControl
 
     private void Order_Click(object? sender, RoutedEventArgs e)
     {
-        if (sender is Button button && button.DataContext is Basket basket)
-        {
-            var existingOrderItem = VariableData.selectedBasket;
+        var basket = App.DbContext.Baskets.FirstOrDefault(x => x.IdUser == VariableData.authenticatedUser.IdUser && x.IsOrder == false);
 
-         if (existingOrderItem != null)
+         if (basket != null)
          {
-             existingOrderItem.IsOrder = true;
-             App.DbContext.Baskets.Update(existingOrderItem);
+             basket.IsOrder = true;
+             App.DbContext.Baskets.Update(basket);
              App.DbContext.SaveChanges();
          }
          
          
          
          DataGridItems.ItemsSource = App.DbContext.Baskets.Where(x => x.IdUser == VariableData.authenticatedUser.IdUser && x.IsOrder == false).ToList();
-        }
+        
     }
 
     private void AllOrdersListBtn_OnClick(object? sender, RoutedEventArgs e)
