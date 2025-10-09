@@ -91,22 +91,29 @@ public partial class ProdListPage : UserControl
 
     private void DeleteButton_Click(object? sender, RoutedEventArgs e)
     {
-        Console.WriteLine("Deleting!");
+        if (VariableData.authenticatedUser.IdRole == 1 || VariableData.authenticatedUser.IdRole == 2)
+        {
+            Console.WriteLine("Deleting!");
 
-        var button = sender as Button;
-        var selectedProduct = button?.DataContext as Product;
-        
+            var button = sender as Button;
+            var selectedProduct = button?.DataContext as Product;
 
-        Console.WriteLine((selectedProduct == null) ? "Item not found" : "Item founded");
 
-        if (selectedProduct == null) return;
+            Console.WriteLine((selectedProduct == null) ? "Item not found" : "Item founded");
 
-        VariableData.selectedProduct = selectedProduct;
+            if (selectedProduct == null) return;
 
-        App.DbContext.Products.Remove(selectedProduct);
-        App.DbContext.SaveChanges();
+            VariableData.selectedProduct = selectedProduct;
 
-        DataGridItems.ItemsSource = App.DbContext.Products.ToList();
+            App.DbContext.Products.Remove(selectedProduct);
+            App.DbContext.SaveChanges();
+
+            DataGridItems.ItemsSource = App.DbContext.Products.ToList();
+        }
+        else
+        {
+            return;
+        }
     }
 
     private void AddButton_Click(object? sender, RoutedEventArgs e)
