@@ -71,9 +71,9 @@
                     <TextBlock Text="Фильтрация по ценам" Margin="10,0,0,5"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="От" Margin="10,0,0,5"/>
-                        <TextBox Name="MinPrice" Margin="10,0,0,5"/>
+                        <TextBox Name="MinPriceText" TextChanged="MinPrice_OnTextChanged" Margin="10,0,0,5"/>
                         <TextBlock Text="До" Margin="10,0,0,5"/>
-                        <TextBox Name="MaxPrice" Margin="10,0,0,5"/>
+                        <TextBox Name="MaxPriceText" TextChanged="MaxPrice_OnTextChanged" Margin="10,0,0,5"/>
                     </StackPanel>
                     </StackPanel>
                     <Button Content="Сбросить фильтры" Name="ResetBtn"  Click="ResetButton_Click" HorizontalAlignment="Left"/>

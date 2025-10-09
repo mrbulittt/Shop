@@ -47,7 +47,7 @@ public partial class ProdListPage : UserControl
 
     private void ComboCategory_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        ApplyFilter();
+        ApplyAllFilter();
     }
 
     private void ApplyFilter()
@@ -64,9 +64,63 @@ public partial class ProdListPage : UserControl
             DataGridItems.ItemsSource = allProducts;
         }
     }
+    
+    private void MinPrice_OnTextChanged(object? sender, TextChangedEventArgs e)
+    {
+        ApplyAllFilter();
+    }
+
+    private void MaxPrice_OnTextChanged(object? sender, TextChangedEventArgs e)
+    {
+        ApplyAllFilter();
+    }
+
+    private IEnumerable<Product> ApplyPriceFilter(IEnumerable<Product> products)
+    {
+        string minPriceText = MinPriceText.Text;
+        string maxPriceText = MaxPriceText.Text;
+
+        var filteredProducts = products.AsEnumerable();
+
+        // Фильтр по минимальной цене
+        if (!string.IsNullOrEmpty(minPriceText) && double.TryParse(minPriceText, out double minPrice))
+        {
+            filteredProducts = filteredProducts.Where(p => p.Price >= (decimal)minPrice);
+        }
+
+        // Фильтр по максимальной цене
+        if (!string.IsNullOrEmpty(maxPriceText) && double.TryParse(maxPriceText, out double maxPrice))
+        {
+            filteredProducts = filteredProducts.Where(p => p.Price <= (decimal)maxPrice);
+        }
+
+        return filteredProducts;
+        DataGridItems.ItemsSource = filteredProducts;
+    }
+
+    private void ApplyAllFilter()
+    {
+        var filteredProducts = allProducts.AsEnumerable();
+    
+        if (ComboCategory.SelectedItem is ProdCategory selectedCategory)
+        {
+            filteredProducts = filteredProducts
+                .Where(p => p.IdCategoryNavigation != null &&
+                            p.IdCategoryNavigation.IdCategory == selectedCategory.IdCategory);
+        }
+
+        filteredProducts = ApplyPriceFilter(filteredProducts);
+
+        DataGridItems.ItemsSource = filteredProducts;
+    }
+
+
     private void ResetButton_Click(object? sender, RoutedEventArgs e)
     {
         DataGridItems.ItemsSource = allProducts;
+        ComboCategory.SelectedItem = null;
+        MinPriceText.Text = string.Empty;
+        MaxPriceText.Text = string.Empty;
     }
 
     private void MainPage(object? sender, RoutedEventArgs e)
