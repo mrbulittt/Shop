@@ -54,8 +54,31 @@
 				
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Content="Добавление" Name="AddBtn"  Grid.Row="1" Click="AddButton_Click"/>
-
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Button Content="Добавление" Name="AddBtn"  Click="AddButton_Click" HorizontalAlignment="Left"/>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <StackPanel>
+                    <TextBlock Text="Фильтрация по категориям" Margin="10,0,0,5"/>
+                    <ComboBox Name="ComboCategory" Margin="10,0,0,5" SelectionChanged="ComboCategory_OnSelectionChanged" Grid.Row="6"  HorizontalAlignment="Right" Width="200"  >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Name="NameCategoryText" FontWeight="Bold" Text="{Binding NameCategory}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    </StackPanel>
+                    <StackPanel>
+                    <TextBlock Text="Фильтрация по ценам" Margin="10,0,0,5"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="От" Margin="10,0,0,5"/>
+                        <TextBox Name="MinPrice" Margin="10,0,0,5"/>
+                        <TextBlock Text="До" Margin="10,0,0,5"/>
+                        <TextBox Name="MaxPrice" Margin="10,0,0,5"/>
+                    </StackPanel>
+                    </StackPanel>
+                    <Button Content="Сбросить фильтры" Name="ResetBtn"  Click="ResetButton_Click" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

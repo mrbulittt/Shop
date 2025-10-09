@@ -17,6 +17,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Basket> Baskets { get; set; }
 
+    
+
     public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<ProdCategory> ProdCategories { get; set; }
@@ -65,6 +67,7 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Basket_id_user_fkey");
         });
+        
 
         modelBuilder.Entity<Order>(entity =>
         {

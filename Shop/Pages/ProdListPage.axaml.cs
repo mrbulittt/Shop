@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Shop.Data;
 using Shop.Views;
 
@@ -12,10 +15,11 @@ namespace Shop.Pages;
 
 public partial class ProdListPage : UserControl
 {
+    private List<Product> allProducts = new List<Product>();
     public ProdListPage()
     {
         InitializeComponent();
-        DataGridItems.ItemsSource = App.DbContext.Products.ToList();
+        LoadData();
         
         if (VariableData.authenticatedUser.IdRole == 2)
         {
@@ -28,6 +32,41 @@ public partial class ProdListPage : UserControl
             AddBtn.IsVisible = false;
             AllOrdersListBtn.IsVisible = false;
         }
+    }
+
+    private void LoadData()
+    {
+        allProducts = App.DbContext.Products
+            .Include(p => p.IdCategoryNavigation)
+            .ToList();
+        
+        ComboCategory.ItemsSource = App.DbContext.ProdCategories.ToList();
+        DataGridItems.ItemsSource = allProducts;
+    }
+
+
+    private void ComboCategory_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        ApplyFilter();
+    }
+
+    private void ApplyFilter()
+    {
+        if (ComboCategory.SelectedItem is ProdCategory selectedCategory)
+        {
+            var filtered = allProducts
+                .Where(p => p.IdCategoryNavigation?.IdCategory == selectedCategory.IdCategory) // Фильтр по ID надежнее
+                .ToList();
+            DataGridItems.ItemsSource = filtered;
+        }
+        else
+        {
+            DataGridItems.ItemsSource = allProducts;
+        }
+    }
+    private void ResetButton_Click(object? sender, RoutedEventArgs e)
+    {
+        DataGridItems.ItemsSource = allProducts;
     }
 
     private void MainPage(object? sender, RoutedEventArgs e)
@@ -169,4 +208,7 @@ public partial class ProdListPage : UserControl
     {
         NavigationService.NavigateTo<AllUsersOrders>();
     }
+
+
+    
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Common;
 using System.Linq;
+using System.Runtime.InteropServices.JavaScript;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -110,7 +111,7 @@ public partial class BasketPage : UserControl
 
         if (userBaskets != null && userBaskets.Any())
         {
-            DateTime orderDate = DateTime.UtcNow;
+           DateOnly orderDate = DateOnly.FromDateTime(DateTime.Now);
         
             var newOrder = new Order
             {
