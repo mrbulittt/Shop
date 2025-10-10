@@ -209,12 +209,21 @@ public partial class ProdListPage : UserControl
         }
     }
 
-    private void AddButton_Click(object? sender, RoutedEventArgs e)
+    private async void AddButton_Click(object? sender, RoutedEventArgs e)
     {
-        if (VariableData.authenticatedUser.IdUser == 3)
+        if (VariableData.authenticatedUser.IdRole == 3)
         {
             IsVisible = false;
         }
+        
+        VariableData.selectedProduct = null;
+        
+        var parent = this.VisualRoot as Window;
+        var changeProduct = new AddAndChangeProd();
+        await changeProduct.ShowDialog(parent);
+        
+        LoadData();
+
     }
 
     private void BasketAdd_Click(object? sender, RoutedEventArgs e)

@@ -21,18 +21,16 @@ public partial class AddAndChangeProd : Window
         if (VariableData.selectedProduct == null)
         {
             DataContext = new Product();
+            return;
         }
 
         if (VariableData.selectedProdCategory != null)
         {
             ComboCategory.SelectedItem = VariableData.selectedProduct.IdCategoryNavigation;
+            return;
         }
         DataContext = VariableData.selectedProduct;
         
-        if (VariableData.authenticatedUser.IdRole == 3)
-        {
-            SaveBtn.IsVisible = false;
-        }
         
         UpdateImg();
     }
@@ -41,13 +39,14 @@ public partial class AddAndChangeProd : Window
     {
         var selectedCategory = ComboCategory.SelectedItem as ProdCategory;
         
-        if(string.IsNullOrEmpty(NameProdText.Text) || string.IsNullOrEmpty(DescriptionText.Text) 
-                                                   || string.IsNullOrEmpty(PriceText.Text) || ComboCategory.SelectedItem == null) return;
+        if(string.IsNullOrEmpty(NameProdText.Text) || string.IsNullOrEmpty(PriceText.Text) || ComboCategory.SelectedItem == null) return;
         
         var prodDataContext = DataContext as Product;
+        prodDataContext.IdCategory = selectedCategory.IdCategory;
         if (VariableData.selectedProduct == null)
         {
             App.DbContext.Products.Add(prodDataContext);
+            
         }
         else
         {
@@ -55,6 +54,7 @@ public partial class AddAndChangeProd : Window
         }
         
         App.DbContext.SaveChanges();
+        UpdateImg();
         this.Close();
     }
 
