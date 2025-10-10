@@ -232,7 +232,7 @@ public partial class ProdListPage : UserControl
         {
             var existingBasketItem = App.DbContext.Baskets
                 .FirstOrDefault(b => b.IdProduct == product.IdProduct && 
-                                     b.IdUser == VariableData.authenticatedUser.IdUser);
+                                     b.IdUser == VariableData.authenticatedUser.IdUser && b.IsOrder == false);
         
             if (existingBasketItem != null)
             {
