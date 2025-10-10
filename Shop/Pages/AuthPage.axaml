@@ -55,9 +55,10 @@
                FontWeight="Heavy"
                VerticalAlignment="Center"
                />
-            <TextBox Name="PasswordText"
+            <TextBox  Name="PasswordText"
              Width="200"
              Height="40"
+             PasswordChar="*"
              VerticalAlignment="Center"
              Margin="80 0 0 0"/>
         </StackPanel>
