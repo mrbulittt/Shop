@@ -43,6 +43,7 @@ public partial class AddAndChangeProd : Window
         
         var prodDataContext = DataContext as Product;
         prodDataContext.IdCategory = selectedCategory.IdCategory;
+        
         if (VariableData.selectedProduct == null)
         {
             App.DbContext.Products.Add(prodDataContext);

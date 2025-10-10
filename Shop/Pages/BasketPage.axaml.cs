@@ -134,7 +134,7 @@ public partial class BasketPage : UserControl
             App.DbContext.SaveChanges();
 
             MessageBoxManager.GetMessageBoxStandard("ЗАКАЗ ОФОРМЛЕН", $"Заказ №{newOrder.IdOrder} оформлен успешно!\n" +
-                                                        $"Дата: {orderDate:dd.MM.yyyy HH:mm}\n" +
+                                                        $"Дата: {orderDate:dd.MM.yyyy}\n" +
                                                         $"Сумма: {newOrder.TotalAmount} руб.\n" +
                                                         $"Товаров: {userBaskets.Count} шт.").ShowAsync();
         }
